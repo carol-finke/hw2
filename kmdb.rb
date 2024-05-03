@@ -86,6 +86,12 @@ Role.destroy_all
 # Generate models and tables, according to the domain model.
 # TODO!
 
+rails generate model Studio name:string
+rails generate model Movie title:string year_released:integer rated:string studio:references
+rails generate model Actor name:string
+rails generate model Role movie:references actor:references character_name:string
+
+
 # Create Studio
 warner_bros = Studio.create(name: "Warner Bros.")
 
@@ -97,11 +103,32 @@ the_dark_knight_rises = Movie.create(title: "The Dark Knight Rises", year_releas
 # Create Actors
 christian_bale = Actor.create(name: "Christian Bale")
 michael_caine = Actor.create(name: "Michael Caine")
-# Add all other actors similarly
+katie_holmes = Actor.create(name: "Katie Holmes")
+gary_oldman = Actor.create(name: "Gary Oldman")
+heath_ledger = Actor.create(name: "Heath Ledger")
+aaron_eckhart = Actor.create(name: "Aaron Eckhart")
+maggie_gyllenhaal = Actor.create(name: "Maggie Gyllenhaal")
+tom_hardy = Actor.create(name: "Tom Hardy")
+joseph_gordon_levitt = Actor.create(name: "Joseph Gordon-Levitt")
+anne_hathaway = Actor.create(name: "Anne Hathaway")
+
 
 # Create Roles
 Role.create(movie: batman_begins, actor: christian_bale, character_name: "Bruce Wayne")
 Role.create(movie: batman_begins, actor: michael_caine, character_name: "Alfred")
+Role.create(movie: batman_begins, actor: liam_neeson, character_name: "Ra's Al Ghul")
+Role.create(movie: batman_begins, actor: katie_holmes, character_name: "Rachel Dawes")
+Role.create(movie: batman_begins, actor: gary_oldman, character_name: "Commissioner Gordon")
+Role.create(movie: dark_knight, actor: christian_bale, character_name: "Bruce Wayne")
+Role.create(movie: dark_knight, actor: heath_ledger, character_name: "Joker")
+Role.create(movie: dark_knight, actor: aaron_eckhart, character_name: "Harvey Dent")
+Role.create(movie: dark_knight, actor: michael_caine, character_name: "Alfred")
+Role.create(movie: dark_knight, actor: maggie_gyllenhaal, character_name: "Rachel Dawes")
+Role.create(movie: dark_knight_rises, actor: christian_bale, character_name: "Bruce Wayne")
+Role.create(movie: dark_knight_rises, actor: gary_oldman, character_name: "Commissioner Gordon")
+Role.create(movie: dark_knight_rises, actor: tom_hardy, character_name: "Bane")
+Role.create(movie: dark_knight_rises, actor: joseph_gordon_levitt, character_name: "John Blake")
+Role.create(movie: dark_knight_rises, actor: anne_hathaway, character_name: "Selina Kyle")
 
 
 # Insert data into the database that reflects the sample data shown above.
