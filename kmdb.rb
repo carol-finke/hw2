@@ -73,12 +73,36 @@
 # The Dark Knight Rises  Joseph Gordon-Levitt  John Blake
 # The Dark Knight Rises  Anne Hathaway         Selina Kyle
 
+
 # Delete existing data, so you'll start fresh each time this script is run.
 # Use `Model.destroy_all` code.
 # TODO!
 
+Studio.destroy_all
+Movie.destroy_all
+Actor.destroy_all
+Role.destroy_all
+
 # Generate models and tables, according to the domain model.
 # TODO!
+
+# Create Studio
+warner_bros = Studio.create(name: "Warner Bros.")
+
+# Create Movies
+batman_begins = Movie.create(title: "Batman Begins", year_released: 2005, rated: "PG-13", studio: warner_bros)
+the_dark_knight = Movie.create(title: "The Dark Knight", year_released: 2008, rated: "PG-13", studio: warner_bros)
+the_dark_knight_rises = Movie.create(title: "The Dark Knight Rises", year_released: 2012, rated: "PG-13", studio: warner_bros)
+
+# Create Actors
+christian_bale = Actor.create(name: "Christian Bale")
+michael_caine = Actor.create(name: "Michael Caine")
+# Add all other actors similarly
+
+# Create Roles
+Role.create(movie: batman_begins, actor: christian_bale, character_name: "Bruce Wayne")
+Role.create(movie: batman_begins, actor: michael_caine, character_name: "Alfred")
+
 
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
@@ -92,11 +116,20 @@ puts ""
 # Query the movies data and loop through the results to display the movies output.
 # TODO!
 
+Movie.all.each do |movie|
+    puts "#{movie.title.ljust(25)} #{movie.year_released.to_s.ljust(8)} #{movie.rated.ljust(6)} #{movie.studio.name}"
+  end
+
 # Prints a header for the cast output
 puts ""
 puts "Top Cast"
 puts "========"
 puts ""
 
+
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
+
+Role.includes(:movie, :actor).each do |role|
+    puts "#{role.movie.title.ljust(25)} #{role.actor.name.ljust(20)} #{role.character_name}"
+  end
